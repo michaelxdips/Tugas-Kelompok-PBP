@@ -5,9 +5,10 @@ session_start();
 $formData = $_SESSION['form_data'] ?? [];
 $errors   = $_SESSION['errors'] ?? [];
 
-// Hapus supaya tidak numpuk tiap refresh
-unset($_SESSION['form_data'], $_SESSION['errors']);
-?>
+if (empty($_SESSION['csrf'])) {
+    $_SESSION['csrf'] = bin2hex(random_bytes(32));
+}
+
 
 <!DOCTYPE html>
 <html lang="en">
